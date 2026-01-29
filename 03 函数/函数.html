@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>es6函数</title>
+</head>
+<body>
+    <script>
+        // 1.带参数默认值的函数
+        function log(x, y = 'World') {
+            console.log(x, y);
+        }
+
+        log('Hello'); // 输出: Hello World
+        log('Hello', 'Alice'); // 输出: Hello Alice
+
+        // 2.默认值也可是一个函数
+        function log2(x, y = getDefault()) {
+            console.log(x, y);
+        }
+        function getDefault() {
+            return 'Default Value';
+        }
+        log2('Test'); // 输出: Test Default Value
+
+
+        // 3.剩余参数
+        function pick(first, ...rest) {
+            console.log(first); // 输出第一个参数
+            console.log(rest);  // 输出剩余参数组成的数组，和arugmengts不一样的地方在于rest是一个真正的数组
+        }
+        const data = { a: 1, b: 2, c: 3, d: 4 };
+        pick(data.a, data.b, data.c, data.d);
+
+        // 4.扩展运算符,将数组分割成独立的参数传给函数
+        const arr = [10, 20, 30];
+        console.log(Math.max(...arr)); // 输出: 30
+
+        // 5.箭头函数
+        const add = (x, y) => x + y;
+        // 等价于
+        // function add(x, y) {
+        //     return x + y;
+        // }
+        console.log(add(5, 7)); // 输出: 12
+
+        // 箭头函数没有自己的this，this只能向上级作用域查找
+        const PageHandler = {
+            id: '12345',
+            init: function() {
+                document.addEventListener('click', (event) => {
+                    // 此处的this指向PageHandler对象，因为这里的this是从init函数的this继承而来
+                    this.handleClick(event.type);
+                });
+            },
+            handleClick: function(type) {
+                console.log('Handling ' + type + ' for id: ' + this.id);
+            }
+        };
+        PageHandler.init();
+
+
+        // 箭头函数注意事项1.不能作为构造函数使用
+        const Foo = () => {};
+        let foo = new Foo(); // 报错: Foo is not a constructor
+
+        // 箭头函数注意事项2.没有arguments对象
+        const func = () => {
+            console.log(arguments); // 报错: arguments is not defined
+        };
+
+    </script>
+    
+</body>
+</html>

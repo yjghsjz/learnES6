@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解构赋值</title>
+</head>
+<body>
+    <script>
+        // 解构赋值是赋值运算符的一种特殊形式，可以从数组或对象中提取值，对变量进行赋值
+        // 1.数组的解构赋值
+        const rgb = [255, 200, 100];
+        const [red, green, blue] = rgb;
+        console.log(red);   // 输出: 255
+
+        // 2.对象的解构赋值
+        const person = { name: 'Alice', age: 30, city: 'New York' };
+        const { name, age, city } = person; // 注意顺序无关紧要
+        console.log(name); // 输出: Alice
+
+        // const { name, ...res} = person; // 使用剩余运算符获取剩余属性
+        // console.log(res); // 输出: { age: 30, city: 'New York' }
+
+        // 3.嵌套解构赋值
+        const nestedArray = [1, [2, 3], 4];
+        const [first, [second, third], fourth] = nestedArray;
+        console.log(second); // 输出: 2 
+
+        const nestedObject = { a: 1, b: { c: 2, d: 3 } };
+        const { a, b: { c, d } } = nestedObject;
+        console.log(c); // 输出: 2
+
+        // 4.默认值
+        const [x = 10, y = 20] = [5];
+        console.log(y); // 输出: 20
+
+        const { p = 'default', q = 42 } = { p: 'custom' };
+        console.log(q); // 输出: 42 
+
+        // 5.函数参数的解构赋值
+        function display({ title, author }) {
+            console.log(`${title} by ${author}`);
+        }   
+        const book = { title: 'JavaScript Basics', author: 'John Doe' };
+        display(book); // 输出: JavaScript Basics by John Doe
+
+    </script>
+</body>
+</html>

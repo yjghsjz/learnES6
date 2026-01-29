@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>let 和 const</title>
+</head>
+<body>
+    <script>
+        // let 
+
+        // 1.声明的变量没有变量提升
+        // console.log(a); 
+        // let a = 10;
+        /**
+        控制台会提示 ReferenceError: Cannot access 'a' before initialization ，
+        不会像var那样输出undefined。
+        **/
+
+        // 2.声明的变量可以被重新赋值
+        let a = 10;
+        console.log('Initial value of a:', a); // 输出: 10
+        a = 20;
+        console.log('Reassigned value of a:', a); // 输出: 20
+
+        // 3.同一作用域内不能重复声明同一个变量
+        // let a = 15; // 取消注释这行代码会导致错误: SyntaxError: Identifier 'a' has already been declared
+
+        // 4.let 声明的变量有块级作用域
+        {
+            let c = 50;
+            console.log('Value of c inside block:', c); // 输出: 50
+        }
+
+        // const 块级作用域，同一作用域内不能重复声明，没有变量提升
+        // 1.声明的变量不能被重新赋值
+        const b = 30;
+        console.log('Initial value of b:', b); // 输出: 30
+        // b = 40; // 取消注释这行代码会导致错误: TypeError: Assignment to constant variable.
+
+        // 2.const 声明的对象属性是可以被修改的
+        const obj = { name: 'Alice' };
+        console.log('Initial object:', obj.name); // 输出: Alice
+        obj.name = 'Bob';
+        console.log('Modified object:', obj.name); // 输出: Bob
+
+
+        // PS:变量提升导致的问题，以及let的块级作用域解决方案，不会污染全局作用域
+        // 作用1: 变量提升问题
+        var arr = [];
+        for (var i = 0; i < 5; i++) {
+            arr.push(function() {
+                console.log(i);
+            });
+        }
+        console.log(arr[2]()); // 输出: 5
+        // 使用var声明的变量i在循环结束后，其值为5，因此所有函数调用时输出的都是5。
+        // 如果使用let声明变量i，则每次循环都会创建一个新的块级作用域，i的值会被正确地捕获。
+
+        // 使用let替代var 
+        const arr2 = [];
+        for (let j = 0; j < 5; j++) {
+            arr2.push(function() {
+                console.log(j);
+            });
+        }
+        console.log(arr2[2]()); // 输出: 2
+        // 使用let声明的变量j在每次循环中都有自己的作用域，因此函数调用时输出的是正确的值。
+
+        // 作用2： 块级作用域避免全局变量污染
+        let RegExp = 'I am RegExp';
+        console.log('Block scoped RegExp:', RegExp); // 输出: I am RegExp
+        console.log(window.RegExp); // 输出: function RegExp() { [native code] }
+        // 使用let声明的RegExp变量不会覆盖全局的RegExp对象。
+
+        // 建议：默认情况下使用const，只有在确定变量需要重新赋值时才使用let
+    </script>
+    
+</body>
+</html>
