@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1.Symbol是一种基本数据类型，表示独一无二的值
+        const sym1 = Symbol('description');
+        const sym2 = Symbol('description');
+        console.log(sym1 === sym2); // false
+
+        // 2.Symbol作为对象的属性键，避免属性名冲突
+        const MY_KEY = Symbol('myKey');
+        // 如果用Symbol定义对象中的属性，必须使用方括号语法来访问
+        const obj = {
+            [MY_KEY]: 'value associated with myKey'
+        };
+        console.log(obj[MY_KEY]); // 'value associated with myKey'
+
+        // tip：对象中的属性如果是通过Symbol定义的，这些属性在for...in循环和Object.keys()、Object.getOwnPropertyNames()等方法中是不可见的
+        for (let key in obj) {
+            console.log(key); // 不会输出MY_KEY
+        }
+
+        // 3.获取对象的Symbol属性
+        const sym3 = Symbol('anotherKey');
+        obj[sym3] = 'value associated with anotherKey';
+        const symbols = Object.getOwnPropertySymbols(obj);
+        console.log(Reflect.ownKeys(obj)); // [ Symbol(myKey) ]
+        console.log(symbols); // [ Symbol(myKey), Symbol(anotherKey) ]
+        symbols.forEach(sym => {
+            console.log(`${sym.toString()}: ${obj[sym]}`); // 输出每个Symbol属性及其对应的值
+        });
+
+        // ps:最大的作用是防止属性名冲突，尤其是在大型项目或使用第三方库时
+    </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拓展的对象功能</title>
+</head>
+<body>
+    <script>
+        // 1.es6直接写入变量和函数，作为对象的属性和方法
+        const name = 'zhangsan', age = 20;
+        // ES5写法
+        const person = {
+            name: name,
+            age: age,
+            sayHello: function() {
+                console.log(`Hello, my name is ${this.name}, I am ${this.age} years old.`);
+            }
+        };
+        // ES6写法，同名属性省略冒号和值，方法省略function关键字
+        const person1 = {
+            name,
+            age,
+            sayHello() {
+                console.log(`Hello, my name is ${this.name}, I am ${this.age} years old.`);
+            }
+        };
+
+        // 2.对象的拓展功能
+        const key = 'address';
+        const value = 'Beijing';
+        const person2 = {
+            // ES5写法
+            // address: value
+            // ES6写法，属性名可以是一个表达式
+            [key]: value,
+            // 方法也可以用表达式来定义
+            ['say' + 'Goodbye']() {
+                console.log('Goodbye!');
+            }
+        };
+
+        // 对象的方法
+        // a.比较两个值是否严格相等，is() ===
+        console.log(Object.is(NaN, NaN)); // true
+        console.log(Object.is(0, -0)); // false
+        // b.合并多个对象，返回一个新对象，浅拷贝
+        const obj1 = { a: 1 };
+        const obj2 = { b: 2 };
+        const mergedObj = Object.assign({}, obj1, obj2);
+        console.log(mergedObj); // { a: 1, b: 2 }
+
+       
+    </script>
+</body>
+</html>

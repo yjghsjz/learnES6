@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map和Set</title>
+</head>
+<body>
+    <script>
+        // 1.Map是一种键值对的数据结构，允许使用任意类型的值作为键
+        const map = new Map();
+        // 添加键值对
+        map.set('name', 'Alice');
+        map.set(42, 'The answer to life');
+        map.set(true, 'Boolean key');
+        // 获取值
+        console.log(map.get('name')); // 'Alice'
+        console.log(map.get(42)); // 'The answer to life'
+        // 检查键是否存在
+        console.log(map.has(true)); // true
+        // 删除键值对
+        map.delete(42);
+        console.log(map.has(42)); // false
+        // 获取Map的大小
+        console.log(map.size); // 2
+
+        // 2.Set是一种不允许重复值的有序数据结构（集合）
+        const set = new Set();
+        // 添加值
+        set.add(1);
+        set.add(2);
+        set.add(2); // 重复添加不会生效
+        set.add('hello');
+        // 检查值是否存在
+        console.log(set.has(2)); // true
+        console.log(set.has(3)); // false
+        // 删除值
+        set.delete(1);
+        console.log(set.has(1)); // false
+        // 获取Set的大小
+        console.log(set.size); // 2
+
+        // 3.Map和Set的遍历
+        // 遍历Map
+        for (let [key, value] of map) {
+            console.log(`${key}: ${value}`);
+        }
+        // 遍历Set
+        for (let value of set) {
+            console.log(value);
+        }
+
+        // 4.Map和Set的其他方法
+        // 清空Map和Set
+        map.clear();
+        set.clear();
+        console.log(map.size); // 0
+        console.log(set.size); // 0
+
+        // 使用拓展运算符去重
+        const arrayWithDuplicates = [1, 2, 2, 3, 4, 4, 5];
+        const uniqueArray = [...new Set(arrayWithDuplicates)];
+        console.log(uniqueArray); // [1, 2, 3, 4, 5]
+
+        // PS: Map和Set在处理大量数据时性能优于普通对象和数组，尤其是在频繁添加、删除和查找操作时
+
+    </script>
+</body>
+</html>
