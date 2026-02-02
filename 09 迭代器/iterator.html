@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iterator</title>
+</head>
+<body>
+    <script>
+        // iterator 是一种新的遍历机制
+        let arr = ['a', 'b', 'c'];
+        let iter = arr[Symbol.iterator](); // 因为数组默认实现了迭代器接口，可以直接调用数组的Symbol.iterator方法
+        iter.next() // { value: 'a', done: false }
+        iter.next() // { value: 'b', done: false }
+        iter.next() // { value: 'c', done: false }
+        iter.next() // { value: undefined, done: true }
+
+        /* 
+            原生具备 Iterator 接口的数据结构如下。
+                Array
+                Map
+                Set
+                String
+                TypedArray
+                函数的 arguments 对象
+                NodeList 对象
+        */
+
+        // 有些场合会默认使用 Iterator 接口，比如 for...of 循环，扩展运算符，解构赋值，yield* 等等
+        // 1. for...of
+        for (let letter of arr) {
+            console.log(letter); // a b c
+        }
+
+        // 2. 扩展运算符
+        let arr2 = [...arr];
+
+        // 3. 解构赋值
+        let [x, y, z] = arr;
+        console.log(x, y, z); // a b c
+
+        // 4. yield*，yield* 后面跟一个可遍历（iterable）对象，表示从该对象生成迭代器
+        function* gen() {
+            yield* arr;
+        }   
+        for (let letter of gen()) {
+            console.log(letter); // a b c
+        }
+
+        // 5.其他
+        // 由于数组的遍历会调用遍历器接口，所以任何接受数组作为参数的场合，其实都调用了遍历器接口。下面是一些例子。
+        // for…of
+        // Array.from()
+        // Map(), Set(), WeakMap(), WeakSet()（比如new Map([['a',1],['b',2]])）
+        // Promise.all()
+        // Promise.race()
+    </script>
+</body>
+</html>
