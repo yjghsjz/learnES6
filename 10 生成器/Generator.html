@@ -66,6 +66,35 @@
          * 第三次调用 g3.next(20)，20 被传入函数内部，赋值给 b，然后函数继续执行到下一个 yield，返回 b + 3，即 23。
          * 最后一次调用 g3.next()，函数执行完毕，返回 { value: undefined, done: true }。
          */
+
+        //  PS：yield关键字后面的表达式不能换行显示,否则会报错。
+
+
+        // 应用示例，使用 Generator 函数和yield语句控制异步操作的执行顺序，异步代码看起来像同步代码
+
+        function* load(){
+            loadUI();
+            yield showData();
+            hideUI();
+        }
+
+        const loader = load();
+        loader.next(); // 加载界面
+
+        function loadUI(){
+         console.log('加载界面');   
+        }
+
+        function showData(data){
+         setTimeout(() => {
+            console.log('显示数据：' + data); 
+            loader.next(); // 隐藏界面
+         }, 1000);
+        }
+        function hideUI(){
+         console.log('隐藏界面');   
+        }
+        
     </script>
 </body>
 </html>
